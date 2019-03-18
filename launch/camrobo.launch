@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="camrobo" name="dc_motors" type="dc_motors.py" required="true" />
+  <node pkg="camrobo" name="camrobo_cmd_vel" type="camrobo_cmd_vel.py" required="true" />
+  <node pkg="joy" name="joy_node" type="joy_node" required="true" />
+</launch>
