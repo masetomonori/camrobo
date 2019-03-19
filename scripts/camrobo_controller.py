@@ -1,17 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import rospy
-from geometry_msgs.msg import Twist
-from std_srvs.srv import Trigger, TriggerResponse
 from sensor_msgs.msg import Joy
-from  camrobo.msg import MotorDirection
+from camrobo.msg import MotorDirection
 
-class JoyTwist(object):
+class CamroboController(object):
     def __init__(self):
         self._joy_sub = rospy.Subscriber('/joy', Joy, self.joy_callback, queue_size=1)
-        #self._twist_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-
-        self._twist_pub1 = rospy.Publisher('/cmd_vel', MotorDirection, queue_size=1)
+        self._md_pub = rospy.Publisher('/cmd_vel', MotorDirection, queue_size=1)
 
         self.level = 1
 
@@ -39,13 +35,10 @@ class JoyTwist(object):
 
 
 if __name__ == '__main__':
-    #rospy.wait_for_service('/motor_on')
-    #rospy.wait_for_service('/motor_off')
-    #rospy.on_shutdown(rospy.ServiceProxy('/motor_off', Trigger).call)
-    #rospy.ServiceProxy('/motor_on', Trigger).call()
     rospy.init_node('camrobo_cmd_vel')
+    camrobo_cmd_vel = CamroboController()
 
     rospy.loginfo("waiting for controller input")
 
-    logicool_cmd_vel = JoyTwist()
     rospy.spin()
+
