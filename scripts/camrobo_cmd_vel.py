@@ -4,12 +4,14 @@ import rospy
 from geometry_msgs.msg import Twist
 from std_srvs.srv import Trigger, TriggerResponse
 from sensor_msgs.msg import Joy
-
+from  camrobo.msg import MotorDirection
 
 class JoyTwist(object):
     def __init__(self):
         self._joy_sub = rospy.Subscriber('/joy', Joy, self.joy_callback, queue_size=1)
-        self._twist_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+        #self._twist_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+
+        self._twist_pub1 = rospy.Publisher('/cmd_vel', MotorDirection, queue_size=1)
 
         self.level = 1
 
