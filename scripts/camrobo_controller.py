@@ -9,30 +9,22 @@ class CamroboController(object):
         self._joy_sub = rospy.Subscriber('/joy', Joy, self.joy_callback, queue_size=1)
         self._md_pub = rospy.Publisher('/cmd_vel', MotorDirection, queue_size=1)
 
-        self.level = 1
-
-    def limitter(self, lvl):
-        if lvl <= 0:    return 1
-        if lvl >= 6:    return 5
-        return lvl
-
     def joy_callback(self, joy_msg):
-        if joy_msg.buttons[7] == 1: self.level += 1
-        if joy_msg.buttons[6] == 1: self.level -= 1
-        self.level = self.limitter(self.level)
+        motor_dir = MotorDirection()
+        motor_dir.right_dir = 0
+        motor_dir.left_dir = 0        
+        
+        if joy_msg.axes[3] >  0.9 :    # right axes up
+           motor_dir.right_dir =  1
+        if joy_msg.axes[3] > -0.9 :    # right axes down
+           motor_dir.right_dir = -1
+       
+        if joy_msg.axes[5] >  0.9 :    # left axes up
+           motor_dir.left_dir =  1
+        if joy_msg.axes[5] > -0.9 :    # left axes down
+           motor_dir.left_dir = -1
 
-        twist = Twist()
-        if joy_msg.buttons[0] == 1:
-            twist.linear.x = joy_msg.axes[1] * 0.2 * self.level
-            twist.angular.z = joy_msg.axes[0] * 3.14 / 32 * (self.level + 15)
-        else:
-            twist.linear.x = 0
-            twist.angular.z = 0
-        self._twist_pub.publish(twist)
-
-        if joy_msg.axes[1] == joy_msg.axes[0] == 0:
-            self.level -= 1
-
+        self._md_pub.publish(motor_dir)
 
 if __name__ == '__main__':
     rospy.init_node('camrobo_cmd_vel')
