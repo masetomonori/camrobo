@@ -17,10 +17,14 @@ class RRI_GPIO():
 
     def setup(self, pin, gin, pud_up = 0):
         pass
- 
-    def set_motor(A1,A2,B1,B2):
-        rospy.loginfo(str(A1) + " " + str(A2) + str(B1) + " " + str(B2))
+
+    def output(self, pwm, n):
+        rospy.loginfo(str(pwm) + " " + str(n))
         pass
+ 
+#    def set_motor(A1,A2,B1,B2):
+#        rospy.loginfo(str(A1) + " " + str(A2) + str(B1) + " " + str(B2))
+#        pass
 
 
     class PWM():
@@ -29,6 +33,7 @@ class RRI_GPIO():
 
         def start(self, n):
             pass
+
     class BCM():
         pass
 
@@ -42,34 +47,62 @@ class RRI_GPIO():
         pass
 
 class DcMotors():
+    GPIO = RRI_GPIO()  # temp
+
+    PIN = 18
+    PWMA1 = 6
+    PWMA2 = 13
+    PWMB1 = 20
+    PWMB2 = 21
+    D1 = 12
+    D2 = 26
+
+    PWM = 50
+
+
+
     def __init__(self):
         self.sub_cmd_vel1 = rospy.Subscriber('cmd_vel', MotorDirection, self.callback_cmd_vel)
 
-        GPIO = RRI_GPIO()
+        GPIO = RRI_GPIO()  # temp
 
-        PIN = 18
-        PWMA1 = 6
-        PWMA2 = 13
-        PWMB1 = 20
-        PWMB2 = 21
-        D1 = 12
-        D2 = 26
+        #PIN = 18
+        #PWMA1 = 6
+        #PWMA2 = 13
+        #PWMB1 = 20
+        #PWMB2 = 21
+        #D1 = 12
+        #D2 = 26
 
-        PWM = 50
+        #PWM = 50
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        GPIO.setup(PIN, GPIO.IN, GPIO.PUD_UP)
-        GPIO.setup(PWMA1, GPIO.OUT)
-        GPIO.setup(PWMA2, GPIO.OUT)
-        GPIO.setup(PWMB1, GPIO.OUT)
-        GPIO.setup(PWMB2, GPIO.OUT)
-        GPIO.setup(D1, GPIO.OUT)
-        GPIO.setup(D2, GPIO.OUT)
-        p1 = GPIO.PWM(D1, 500)
-        p2 = GPIO.PWM(D2,500)
+        GPIO.setup(self.PIN, GPIO.IN, GPIO.PUD_UP)
+        GPIO.setup(self.PWMA1, GPIO.OUT)
+        GPIO.setup(self.PWMA2, GPIO.OUT)
+        GPIO.setup(self.PWMB1, GPIO.OUT)
+        GPIO.setup(self.PWMB2, GPIO.OUT)
+        GPIO.setup(self.D1, GPIO.OUT)
+        GPIO.setup(self.D2, GPIO.OUT)
+        p1 = GPIO.PWM(self.D1, 500)
+        p2 = GPIO.PWM(self.D2,500)
         p1.start(50)
         p2.start(50)
+
+    def set_motor(self, A1,A2,B1,B2):
+        GPIO = RRI_GPIO()  # temp
+
+        GPIO.output(self.PWMA1,A1)
+        GPIO.output(self.PWMA2,A2)
+        GPIO.output(self.PWMB1,B1)
+        GPIO.output(self.PWMB2,B2)
+
+
+        #rospy.loginfo(str(A1) + " " + str(A2) + str(B1) + " " + str(B2))
+        pass
+
+
 
     def callback_cmd_vel(self, message):
         l = message.left_dir
@@ -85,7 +118,7 @@ class DcMotors():
         if (r ==  1) : b1 = 1
         if (r == -1) : b2 = 1
         
-        set_motor(a1, a2, b1, b3)
+        self.set_motor(a1, a2, b1, b2)
 
 if __name__ == '__main__':
     rospy.init_node('dc_motors')
