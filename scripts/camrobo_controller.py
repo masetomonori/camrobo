@@ -14,14 +14,16 @@ class CamroboController(object):
         motor_dir.right_dir = 0
         motor_dir.left_dir = 0        
         
+        rospy.loginfo(str(joy_msg.axes[3]) + " " + str(joy_msg.axes[5]))
+
         if joy_msg.axes[3] >  0.9 :    # right axes up
            motor_dir.right_dir =  1
-        if joy_msg.axes[3] > -0.9 :    # right axes down
+        if joy_msg.axes[3] < -0.9 :    # right axes down
            motor_dir.right_dir = -1
        
         if joy_msg.axes[5] >  0.9 :    # left axes up
            motor_dir.left_dir =  1
-        if joy_msg.axes[5] > -0.9 :    # left axes down
+        if joy_msg.axes[5] < -0.9 :    # left axes down
            motor_dir.left_dir = -1
 
         self._md_pub.publish(motor_dir)
