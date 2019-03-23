@@ -79,6 +79,12 @@ class DcMotors():
         pass
 
     def move_motor(self):
+        p1 = GPIO.PWM(self.D1, 500)
+        p2 = GPIO.PWM(self.D2, 500)
+
+        p1.start(50)
+        p2.start(50)
+
         GPIO.output(self.PWMA1,self.a1)
         GPIO.output(self.PWMA2,self.a2)
         GPIO.output(self.PWMB1,self.b1)
@@ -121,7 +127,10 @@ if __name__ == '__main__':
 
     #    time.sleep(0.00006)    
 
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(100)
+
     while not rospy.is_shutdown():
         m.move_motor()
         rate.sleep()
+
+
