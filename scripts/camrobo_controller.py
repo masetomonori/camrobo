@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import rospy
+import time
 from sensor_msgs.msg import Joy
 from camrobo.msg import MotorDirection
 
@@ -26,7 +27,9 @@ class CamroboController(object):
         if joy_msg.axes[5] < -0.9 :    # left axes down
            motor_dir.left_dir = -1
 
+        #for i in range(10):
         self._md_pub.publish(motor_dir)
+        #time.sleep(0.1)
 
 if __name__ == '__main__':
     rospy.init_node('camrobo_cmd_vel')

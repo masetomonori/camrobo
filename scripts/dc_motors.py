@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 #encoding: utf8
 import sys, rospy
+import time
 from camrobo.msg import MotorDirection 
 
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 class RRI_GPIO():
     def __init__(self):
@@ -47,7 +48,7 @@ class RRI_GPIO():
         pass
 
 class DcMotors():
-    GPIO = RRI_GPIO()  # temp
+    #GPIO = RRI_GPIO()  # temp
 
     PIN = 18
     PWMA1 = 6
@@ -59,12 +60,15 @@ class DcMotors():
 
     PWM = 50
 
-
+    a1 = 0
+    a2 = 0
+    b1 = 0
+    b2 = 0
 
     def __init__(self):
         self.sub_cmd_vel1 = rospy.Subscriber('cmd_vel', MotorDirection, self.callback_cmd_vel)
 
-        GPIO = RRI_GPIO()  # temp
+        #GPIO = RRI_GPIO()  # temp
 
         #PIN = 18
         #PWMA1 = 6
@@ -90,18 +94,36 @@ class DcMotors():
         p1.start(50)
         p2.start(50)
 
+        #while True:
+            #GPIO.output(self.PWMA1,1)
+            #GPIO.output(self.PWMA2,0)
+            #GPIO.output(self.PWMB1,1)
+            #GPIO.output(self.PWMB2,0)
+
+
     def set_motor(self, A1,A2,B1,B2):
-        GPIO = RRI_GPIO()  # temp
+        #GPIO = RRI_GPIO()  # temp
+        rospy.loginfo(str(A1) + " " + str(A2) + " " + str(B1) + " " + str(B2))
 
-        GPIO.output(self.PWMA1,A1)
-        GPIO.output(self.PWMA2,A2)
-        GPIO.output(self.PWMB1,B1)
-        GPIO.output(self.PWMB2,B2)
+        p1 = GPIO.PWM(self.D1, 500)
+        p2 = GPIO.PWM(self.D2, 500)
 
+        p1.start(50)
+        p2.start(50)
 
-        #rospy.loginfo(str(A1) + " " + str(A2) + str(B1) + " " + str(B2))
+        for i in range(10000):#while True:
+            GPIO.output(self.PWMA1,A1)
+            GPIO.output(self.PWMA2,A2)
+            GPIO.output(self.PWMB1,B1)
+            GPIO.output(self.PWMB2,B2)
+
         pass
 
+    def move_motor(self):
+        GPIO.output(self.PWMA1,self.a1)
+        GPIO.output(self.PWMA2,self.a2)
+        GPIO.output(self.PWMB1,self.b1)
+        GPIO.output(self.PWMB2,self.b2)
 
 
     def callback_cmd_vel(self, message):
@@ -118,7 +140,9 @@ class DcMotors():
         if (r ==  1) : b1 = 1
         if (r == -1) : b2 = 1
         
+        #while True:  
         self.set_motor(a1, a2, b1, b2)
+            #time.sleep(1)
 
 if __name__ == '__main__':
     rospy.init_node('dc_motors')
