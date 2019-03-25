@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="camrobo" name="dc_motors" type="dc_motors.py" required="true" />
+  <test test-name="test_dc_motors" pkg="camrobo" type="travis_test_dc_motors.py" time-limit="60.0"/>
+</launch>
