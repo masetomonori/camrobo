@@ -3,6 +3,8 @@
 import sys, rospy
 import time
 from camrobo.msg import MotorDirection 
+
+#from pseudo_rpi_gpio import GPIO   # for PC debug
 import RPi.GPIO as GPIO
 
 class DcMotors():
