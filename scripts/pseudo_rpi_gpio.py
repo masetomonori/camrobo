@@ -16,7 +16,12 @@ class pseudo_rpi_gpio():
         pass
 
     def output(self, pwm, n):
-        #rospy.loginfo(str(pwm) + " " + str(n))
+        dev_file_name = "/dev/dc_GPIO_" + str(pwm).zfill(2)
+        try:
+            with open(dev_file_name, 'w') as dev:
+                dev.write(str(n) + "\n")
+        except:
+            rospy.logerr("cannot write to " + dev_file_name)
         pass
  
     class PWM():
