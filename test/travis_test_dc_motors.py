@@ -7,11 +7,6 @@ from camrobo.msg import MotorDirection
 
 class MotorTest(unittest.TestCase):
     def setUp(self):
-        #rospy.wait_for_service('/motor_on')
-        #rospy.wait_for_service('/motor_off')
-        #rospy.wait_for_service('/timed_motion')
-        #on = rospy.ServiceProxy('motor_on', Trigger)
-        #ret = on()
         pass
 
     def file_check(self, dev, value, message):
@@ -27,7 +22,6 @@ class MotorTest(unittest.TestCase):
         m = MotorDirection()
         m.left_dir  = left_dir
         m.right_dir = right_dir
-
 
         for i in range(10):
             pub.publish(m)
