@@ -62,10 +62,18 @@ class DcMotors():
             self.b1 = 0
             self.b2 = 0
 
-        if (l ==  1) : self.a1 = 1
-        if (l == -1) : self.a2 = 1
-        if (r ==  1) : self.b1 = 1
-        if (r == -1) : self.b2 = 1
+        if (l ==  1) :
+            self.a1 = 1
+            self.a2 = 0
+        if (l == -1) :
+            self.a1 = 0
+            self.a2 = 1
+        if (r ==  1) :
+            self.b1 = 1
+            self.b2 = 0
+        if (r == -1) :
+            self.b1 = 0
+            self.b2 = 1
         
 if __name__ == '__main__':
     rospy.init_node('dc_motors')
