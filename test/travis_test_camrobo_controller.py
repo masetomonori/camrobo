@@ -3,14 +3,10 @@
 import unittest, rostest
 import rosnode, rospy
 import time
+from sensor_msgs.msg import Joy
 
 class ControllerTest(unittest.TestCase):
     def setUp(self):
-        #rospy.wait_for_service('/motor_on')
-        #rospy.wait_for_service('/motor_off')
-        #rospy.wait_for_service('/timed_motion')
-        #on = rospy.ServiceProxy('motor_on', Trigger)
-        #ret = on()
         pass
 
     def file_check(self, dev, value, message):
@@ -35,13 +31,19 @@ class ControllerTest(unittest.TestCase):
         pass
 
     def test_put_joy(self):
-        #pub = rospy.Publisher('/cmd_vel', Twist)
-        #m = Twist()
-        #m.linear.x = 0.1414
-        #m.angular.z = 1.57
-        #for i in range(10):
-        #    pub.publish(m)
-        #    time.sleep(0.1)
+        pub = rospy.Publisher('/joy', Joy)
+        j = Joy()
+        j.axes = [0.0, 0.0, 0.0, 0.95, 0.0, 0.9]
+        
+        for i in range(10):
+            pub.publish(j)
+            time.sleep(0.1)
+  
+        self.file_check("dc_GPIO_06", 1, "wrong value from GPIO_06")
+        self.file_check("dc_GPIO_13", 0, "wrong value from GPIO_13")
+        self.file_check("dc_GPIO_20", 1, "wrong value from GPIO_20")
+        self.file_check("dc_GPIO_21", 0, "wrong value from GPIO_21")
+
 
         #self.file_check("rtmotor_raw_l0", 200, "wrong left value from cmd_vel")
         #self.file_check("rtmotor_raw_r0", 600, "wrong right value from cmd_vel")
