@@ -4,8 +4,10 @@ import sys, rospy
 import time
 from camrobo.msg import MotorDirection 
 
-from pseudo_rpi_gpio import GPIO   # for PC debug
-#import RPi.GPIO as GPIO
+try:
+    import RPi.GPIO as GPIO            # for raspberry pi
+except:
+    from pseudo_rpi_gpio import GPIO   # for PC debug
 
 class DcMotors():
     PIN = 18
