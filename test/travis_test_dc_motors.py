@@ -34,15 +34,15 @@ class MotorTest(unittest.TestCase):
 
 
     def test_put_cmd_vel(self):
-        self.check_GPIO(-1, -1, 0, 1, 0, 1)
-        self.check_GPIO(-1,  0, 0, 1, 0, 0)
-        self.check_GPIO(-1,  1, 0, 1, 1, 0)
-        self.check_GPIO( 0, -1, 0, 0, 0, 1)
-        self.check_GPIO( 0,  0, 0, 0, 0, 0)
-        self.check_GPIO( 0,  1, 0, 0, 1, 0)
-        self.check_GPIO( 1, -1, 1, 0, 0, 1)
-        self.check_GPIO( 1,  0, 1, 0, 0, 0)
-        self.check_GPIO( 1,  1, 1, 0, 1, 0)
+        self.check_GPIO( 1,  1, 1, 0, 1, 0) # forward
+        self.check_GPIO( 1,  0, 1, 0, 0, 0) # right forward turn
+        self.check_GPIO( 1, -1, 1, 0, 0, 1) # right spin turn
+        self.check_GPIO( 0,  1, 0, 0, 1, 0) # left forward turn
+        self.check_GPIO( 0,  0, 0, 0, 0, 0) # stop
+        self.check_GPIO( 0, -1, 0, 0, 0, 1) # right backward turn
+        self.check_GPIO(-1,  1, 0, 1, 1, 0) # left spin turn
+        self.check_GPIO(-1,  0, 0, 1, 0, 0) # left backward turn
+        self.check_GPIO(-1, -1, 0, 1, 0, 1) # backward
 
 if __name__ == '__main__' :
     rospy.init_node('travis_test_dc_motors')
