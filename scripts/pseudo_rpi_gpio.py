@@ -21,8 +21,8 @@ class pseudo_rpi_gpio():
             with open(dev_file_name, 'w') as dev:
                 dev.write(str(n) + "\n")
         except:
-            rospy.logerr("cannot write to " + dev_file_name)
-        pass
+            #rospy.logerr("cannot write to " + dev_file_name)
+            pass
  
     class PWM():
         def __init__(self, d, n):
