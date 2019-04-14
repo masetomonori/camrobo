@@ -1,13 +1,12 @@
 [Unit]
-Description=camrobo roslaunch
+Description=joy
 #After=networking.service
 Requires=rosmaster
 
 [Service]
 EnvironmentFile=/etc/systemd/camrobo.conf
 User=ubuntu
-ExecStartPre=/usr/bin/sudo /bin/chmod 777 /dev/gpiomem
-ExecStart=/opt/ros/kinetic/bin/roslaunch /home/ubuntu/catkin_ws/src/camrobo/launch/camrobo.launch
+ExecStart=/opt/ros/kinetic/lib/joy/joy_node
 Type=simple
 Restart=always
 RestartSec=1s
