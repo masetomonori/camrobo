@@ -1,0 +1,17 @@
+[Unit]
+Description=camrobo roslaunch
+#After=networking.service
+Requires=rosmaster
+
+[Service]
+EnvironmentFile=/etc/systemd/camrobo.conf
+User=tomtom
+#ExecStartPre=/usr/bin/sudo /bin/chmod 777 /dev/gpiomem
+ExecStart=/opt/ros/kinetic/bin/roslaunch /home/tomtom/catkin_ws/src/camrobo/launch/camrobo.launch
+Type=simple
+#Restart=always
+RestartSec=1s
+
+[Install]
+WantedBy=multi-user.target
+
