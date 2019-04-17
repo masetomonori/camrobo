@@ -53,7 +53,7 @@ class DcMotors():
         GPIO.output(self.PWMB1,self.b1)
         GPIO.output(self.PWMB2,self.b2)
 
-        rospy.loginfo(str(self.a1) + " " + str(self.a2) + " " + str(self.b1) + " " + str(self.b2))
+        #rospy.loginfo(str(self.a1) + " " + str(self.a2) + " " + str(self.b1) + " " + str(self.b2))
 
     def callback_cmd_vel(self, message):
         l = message.left_dir
