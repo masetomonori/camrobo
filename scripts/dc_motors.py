@@ -85,9 +85,10 @@ if __name__ == '__main__':
 
     rospy.loginfo("waiting for dc_motors input")
 
-    rate = rospy.Rate(100)
-    #while not rospy.is_shutdown():
-    #    m.move_motor()
-    #    rate.sleep()
-    rospy.spin()
+    #rate = rospy.Rate(100)
+    rate = rospy.Rate(1)
+    while not rospy.is_shutdown():
+        m.move_motor()
+        rate.sleep()
+
 
