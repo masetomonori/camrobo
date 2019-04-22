@@ -1,6 +1,6 @@
 <launch>
   <node pkg="camrobo" name="dc_motors" type="dc_motors.py" required="true" />
   <node pkg="camrobo" name="camrobo_cmd_vel" type="camrobo_controller.py" required="true" />
-  <test test-name="test_dc_motors" pkg="camrobo" type="travis_test_dc_motors.py" time-limit="60.0" />
+  <!-- test test-name="test_dc_motors" pkg="camrobo" type="travis_test_dc_motors.py" time-limit="60.0" / -->
   <test test-name="test_camrobo_controller" pkg="camrobo" type="travis_test_camrobo_controller.py" time-limit="60.0" />
 </launch>
