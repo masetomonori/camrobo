@@ -5,7 +5,7 @@ Requires=networking.service
 
 [Service]
 EnvironmentFile=/etc/systemd/camrobo.conf
-User=tomtom
+User=ubuntu
 ExecStart=/opt/ros/kinetic/bin/rosmaster --core -p 11311
 Type=simple
 estart=always
