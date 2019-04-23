@@ -25,7 +25,7 @@ class MotorTest(unittest.TestCase):
 
         for i in range(10):
             pub.publish(m)
-            time.sleep(0.1)
+            time.sleep(0.5)
 
         self.file_check("dc_GPIO_06", a1, "wrong value from GPIO_06")
         self.file_check("dc_GPIO_13", a2, "wrong value from GPIO_13")
@@ -45,6 +45,7 @@ class MotorTest(unittest.TestCase):
         self.check_GPIO(-1, -1, 0, 1, 0, 1) # backward
 
 if __name__ == '__main__' :
+    time.sleep(3)
     rospy.init_node('travis_test_dc_motors')
     rostest.rosrun('camrobo', 'travis_test_dc_motors', MotorTest)
 
