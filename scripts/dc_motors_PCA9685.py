@@ -8,7 +8,8 @@ from PCA9685 import PCA9685
 
 pwm = PCA9685(0x40, debug=False)
 pwm.setPWMFreq(50)
-speed = 100
+#speed = 100
+speed = 30
 
 class DcMotors():
     a1 = 0
@@ -28,7 +29,7 @@ class DcMotors():
 
     def move_motor(self):
         pwm.setDutycycle(self.PWMA, speed)
-        pwm.setDutycycle(self.PWMA, speed)
+        pwm.setDutycycle(self.PWMB, speed)
 
         pwm.setLevel(self.AIN1, self.a1)
         pwm.setLevel(self.AIN2, self.a2)
