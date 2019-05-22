@@ -1,16 +1,16 @@
 {
     "buttons":{
         "A": 1,
-        "B": 2,
-        "X": 0,
-        "Y": 3
+        "B": 0,
+        "X": 3,
+        "Y": 2
     },
     "axes":{
-        "cross_h"   : 0,
-        "cross_v"   : 1,
-	"stick_h_r" : 2,
-        "stick_v_r" : 3,
-        "stick_h_l" : 4,
-        "stick_v_l" : 5
+        "cross_h"   : 6,
+        "cross_v"   : 7,
+        "stick_h_r" : 3,
+        "stick_v_r" : 4,
+        "stick_h_l" : 0,
+        "stick_v_l" : 1
     }
 }
