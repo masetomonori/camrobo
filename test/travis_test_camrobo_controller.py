@@ -4,8 +4,12 @@ import unittest, rostest
 import rosnode, rospy
 import time
 from sensor_msgs.msg import Joy
+from joy_map import JoyMap
 
 class ControllerTest(unittest.TestCase):
+
+    jm = JoyMap()
+
     def setUp(self):
         pass
 
@@ -20,7 +24,10 @@ class ControllerTest(unittest.TestCase):
     def check_GPIO(self, left_axes, right_axes, a1, a2, b1, b2):
 	pub = rospy.Publisher('/joy', Joy)
         j = Joy()
-        j.axes = [0.0, 0.0, 0.0, right_axes, 0.0, left_axes]
+        j.axes = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+
+        j.axes[self.jm.axis_stick_v_r] = right_axes
+        j.axes[self.jm.axis_stick_v_l] = left_axes
 
         for i in range(10):
             pub.publish(j)
