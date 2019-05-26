@@ -1,0 +1,15 @@
+PYTHONPATH=/home/pi/catkin_ws/devel/lib/python2.7/dist-packages:/opt/ros/melodic/lib/python2.7/dist-packages
+ROSLISP_PACKAGE_DIRECTORIES=/home/pi/catkin_ws/devel/share/common-lisp
+ROS_DISTRO=melodic
+ROS_ETC_DIR=/opt/ros/melodic/etc/ros
+ROS_ETC_DIR=/opt/ros/melodic/etc/ros
+ROS_MASTER_URI=http://localhost:11311
+ROS_VERSION=1
+ROS_ROOT=/opt/ros/melodic/share/ros
+ROS_PYTHON_VERSION=2
+ROS_PACKAGE_PATH=/home/pi/catkin_ws/src:/opt/ros/melodic/share
+LD_LIBRARY_PATH=/home/pi/catkin_ws/devel/lib:/opt/ros/melodic/lib
+
+@reboot /opt/ros/melodic/bin/rosmaster --core -p 11311
+@reboot /opt/ros/melodic/bin/roslaunch /home/pi/catkin_ws/src/camrobo/launch/nanorobo.launch
+@reboot /opt/ros/melodic/lib/joy/joy_node
