@@ -18,9 +18,10 @@ class CamroboController(object):
 
     def joy_callback(self, joy_msg):
         #print(joy_msg)
+        #print(self.shutdown_count)
         if joy_msg.buttons[self.jm.button_A] == 1:
             self.shutdown_count +=1
-            if self.shutdown_count >= 100:
+            if self.shutdown_count >= 10:
                 sudoPassword = 'raspberry'
                 command = 'shutdown -h now'
                 p = os.system('echo %s|sudo -S %s' % (sudoPassword, command))
@@ -30,21 +31,20 @@ class CamroboController(object):
         motor_dir.right_dir = 0
         motor_dir.left_dir = 0        
  
-        rospy.loginfo("l:" + str(joy_msg.axes[self.jm.axis_stick_v_l]) + ", r:" + str(joy_msg.axes[self.jm.axis_stick_v_r]))
-
-        #print(self.jm.axis_stick_v_r, self.jm.axis_stick_v_l)
+        #rospy.loginfo("l:" + str(joy_msg.axes[self.jm.axis_stick_v_l]) + ", r:" + str(joy_msg.axes[self.jm.axis_stick_v_r]))
 
         if joy_msg.axes[self.jm.axis_stick_v_r] >  0.9 :    # right axes up
-           motor_dir.right_dir =  1
+            motor_dir.right_dir =  1
+            self.shutdown_count = 0
         if joy_msg.axes[self.jm.axis_stick_v_r] < -0.9 :    # right axes down
-           motor_dir.right_dir = -1
-
+            motor_dir.right_dir = -1
+            self.shutdown_count = 0
         if joy_msg.axes[self.jm.axis_stick_v_l] >  0.9 :    # left axes up
-           motor_dir.left_dir =  1
+            motor_dir.left_dir =  1
+            self.shutdown_count = 0
         if joy_msg.axes[self.jm.axis_stick_v_l] < -0.9 :    # left axes down
-           motor_dir.left_dir = -1
-
-        self.shutdown_count = 0
+            motor_dir.left_dir = -1
+            self.shutdown_count = 0
 
         self._md_pub.publish(motor_dir)
 
