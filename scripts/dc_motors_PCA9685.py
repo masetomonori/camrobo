@@ -66,6 +66,24 @@ if __name__ == '__main__':
     rospy.init_node('dc_motors')
     m = DcMotors()
 
+    # start up action
+    m.a1 = 1
+    m.a2 = 0
+    m.b1 = 0
+    m.b2 = 1
+    m.move_motor()
+    time.sleep(0.5)
+    m.a1 = 0
+    m.a2 = 1
+    m.b1 = 1
+    m.b2 = 0
+    m.move_motor()
+    time.sleep(0.5)
+    m.a1 = 0
+    m.a2 = 0
+    m.b1 = 0
+    m.b2 = 0
+
     rospy.loginfo("waiting for dc_motors input")
 
     rate = rospy.Rate(100)
