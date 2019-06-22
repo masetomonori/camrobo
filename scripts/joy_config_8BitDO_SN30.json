@@ -1,0 +1,16 @@
+{
+    "buttons":{
+        "A": 1,
+        "B": 0,
+        "X": 3,
+        "Y": 2
+    },
+    "axes":{
+        "cross_h"   : 4,
+        "cross_v"   : 5,
+        "stick_h_r" : 2,
+        "stick_v_r" : 3,
+        "stick_h_l" : 0,
+        "stick_v_l" : 1
+    }
+}
